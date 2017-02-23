@@ -43,7 +43,7 @@ bool inizia = false;
 
 bool camera_on = false;
 
-int photocount = 0; //initialize image counter
+int photocount = 1; //initialize image counter
 
 int N_MIN = 0;
 int regola_index = 0; // per stabilire tramite pulsanti quale classe classificare
@@ -451,10 +451,8 @@ namespace Tutorial {
 		if (frame != NULL){
 			if (inizia == true)
 			{
-				if (conta <= fino_a)
+				if (conta < fino_a)
 				{
-				
-				
 				CvSize s = cvGetSize(frame);
 				int d = frame->depth;
 				int c = frame->nChannels;
@@ -518,6 +516,7 @@ namespace Tutorial {
 					pictureBox2->Refresh();
 
 					conta++;
+
 
 					textBox1->Text = textBox1->Text + "\r\nCONTA= " + conta;
 					textBox1->SelectionStart = textBox1->Text->Length;
