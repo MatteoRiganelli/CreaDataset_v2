@@ -8,13 +8,3 @@ image7.JPEG 0
 image8.JPEG 0
 image9.JPEG 0
 image10.JPEG 0
-image11.JPEG 0
-image12.JPEG 0
-image13.JPEG 0
-image14.JPEG 0
-image15.JPEG 0
-image16.JPEG 0
-image17.JPEG 0
-image18.JPEG 0
-image19.JPEG 0
-image20.JPEG 0

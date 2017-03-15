@@ -325,6 +325,7 @@ Mat findLip(IplImage* src, ObjectDetector* faceDetector, IplImage* result, bool 
 
 
 	}
+
 	const float kSescaleFactor = 2;
 	cvReleaseImage(&roiMask);
 	resize(croppedImage, new_mat, cvSize(100, 100), kSescaleFactor, kSescaleFactor);

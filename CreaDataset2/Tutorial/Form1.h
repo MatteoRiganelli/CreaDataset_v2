@@ -5,12 +5,11 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-
-//per chdir
 #include <stdio.h> 
 #include <stdlib.h>
 #include <string>
 #include <direct.h>
+#include "Form_info.h"
 
 using namespace System;
 using namespace System::ComponentModel;
@@ -44,10 +43,9 @@ bool mouthFound = false;
 Mat myMat;
 Mat croppedImage;
 bool inizia = false;
-
 bool camera_on = false;
-
-int photocount = 1; //initialize image counter
+//initialize image counter
+int photocount = 1; 
 
 int N_MIN = 0;
 int regola_index = 0; // per stabilire tramite pulsanti quale classe classificare
@@ -91,8 +89,10 @@ namespace Tutorial {
 			}
 		}
 	private: System::Windows::Forms::PictureBox^  pictureBox1;
-	protected: 
 	private: System::Windows::Forms::Button^  button1;
+
+	protected:
+
 	private: System::Windows::Forms::Timer^  timer1;
 	private: System::Windows::Forms::MenuStrip^  menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^  fileToolStripMenuItem;
@@ -129,6 +129,7 @@ namespace Tutorial {
 	private: System::Windows::Forms::TextBox^  textBoxControlCreateImagenetVal;
 	private: System::Windows::Forms::TextBox^  textBoxControlmakeImagenetMean;
 	private: System::Windows::Forms::TextBox^  textBoxControlStartTrain;
+	private: System::Windows::Forms::ToolStripMenuItem^  informazioniToolStripMenuItem;
 
 
 
@@ -150,21 +151,22 @@ namespace Tutorial {
 		{
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
-			System::Windows::Forms::ListViewItem^  listViewItem11 = (gcnew System::Windows::Forms::ListViewItem(L"0 - A,L,N,NE,VA,CA"));
-			System::Windows::Forms::ListViewItem^  listViewItem12 = (gcnew System::Windows::Forms::ListViewItem(L"1 - E,CA,GA,CHE,F,FI"));
-			System::Windows::Forms::ListViewItem^  listViewItem13 = (gcnew System::Windows::Forms::ListViewItem(L"2 - I,CHI,BI,R,S,T,D,GR,Z"));
-			System::Windows::Forms::ListViewItem^  listViewItem14 = (gcnew System::Windows::Forms::ListViewItem(L"3 - O,GO,CO,DO,PO,TO,RO"));
-			System::Windows::Forms::ListViewItem^  listViewItem15 = (gcnew System::Windows::Forms::ListViewItem(L"4 - U,QU,Gu,TU,SU,LU"));
-			System::Windows::Forms::ListViewItem^  listViewItem16 = (gcnew System::Windows::Forms::ListViewItem(L"5 - F,V"));
-			System::Windows::Forms::ListViewItem^  listViewItem17 = (gcnew System::Windows::Forms::ListViewItem(L"6 - T,D,Z,S,R"));
-			System::Windows::Forms::ListViewItem^  listViewItem18 = (gcnew System::Windows::Forms::ListViewItem(L"7 - P,M,B"));
-			System::Windows::Forms::ListViewItem^  listViewItem19 = (gcnew System::Windows::Forms::ListViewItem(L"8 - CI,GI,CE,GE,SH"));
-			System::Windows::Forms::ListViewItem^  listViewItem20 = (gcnew System::Windows::Forms::ListViewItem(L"9 - NEUT"));
+			System::Windows::Forms::ListViewItem^  listViewItem1 = (gcnew System::Windows::Forms::ListViewItem(L"0 - A,L,N,NE,VA,CA"));
+			System::Windows::Forms::ListViewItem^  listViewItem2 = (gcnew System::Windows::Forms::ListViewItem(L"1 - E,CA,GA,CHE,F,FI"));
+			System::Windows::Forms::ListViewItem^  listViewItem3 = (gcnew System::Windows::Forms::ListViewItem(L"2 - I,CHI,BI,R,S,T,D,GR,Z"));
+			System::Windows::Forms::ListViewItem^  listViewItem4 = (gcnew System::Windows::Forms::ListViewItem(L"3 - O,GO,CO,DO,PO,TO,RO"));
+			System::Windows::Forms::ListViewItem^  listViewItem5 = (gcnew System::Windows::Forms::ListViewItem(L"4 - U,QU,Gu,TU,SU,LU"));
+			System::Windows::Forms::ListViewItem^  listViewItem6 = (gcnew System::Windows::Forms::ListViewItem(L"5 - F,V"));
+			System::Windows::Forms::ListViewItem^  listViewItem7 = (gcnew System::Windows::Forms::ListViewItem(L"6 - T,D,Z,S,R"));
+			System::Windows::Forms::ListViewItem^  listViewItem8 = (gcnew System::Windows::Forms::ListViewItem(L"7 - P,M,B"));
+			System::Windows::Forms::ListViewItem^  listViewItem9 = (gcnew System::Windows::Forms::ListViewItem(L"8 - CI,GI,CE,GE,SH"));
+			System::Windows::Forms::ListViewItem^  listViewItem10 = (gcnew System::Windows::Forms::ListViewItem(L"9 - NEUT"));
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->fileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->informazioniToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->exitToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
@@ -237,15 +239,25 @@ namespace Tutorial {
 			// 
 			// fileToolStripMenuItem
 			// 
-			this->fileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->exitToolStripMenuItem });
+			this->fileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->informazioniToolStripMenuItem,
+					this->exitToolStripMenuItem
+			});
 			this->fileToolStripMenuItem->Name = L"fileToolStripMenuItem";
 			this->fileToolStripMenuItem->Size = System::Drawing::Size(37, 20);
 			this->fileToolStripMenuItem->Text = L"File";
 			// 
+			// informazioniToolStripMenuItem
+			// 
+			this->informazioniToolStripMenuItem->Name = L"informazioniToolStripMenuItem";
+			this->informazioniToolStripMenuItem->Size = System::Drawing::Size(141, 22);
+			this->informazioniToolStripMenuItem->Text = L"Informazioni";
+			this->informazioniToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::informazioniToolStripMenuItem_Click);
+			// 
 			// exitToolStripMenuItem
 			// 
 			this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
-			this->exitToolStripMenuItem->Size = System::Drawing::Size(92, 22);
+			this->exitToolStripMenuItem->Size = System::Drawing::Size(141, 22);
 			this->exitToolStripMenuItem->Text = L"Exit";
 			this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::exitToolStripMenuItem_Click);
 			// 
@@ -289,8 +301,8 @@ namespace Tutorial {
 			this->listView1->Font = (gcnew System::Drawing::Font(L"OpenSymbol", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->listView1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ListViewItem^  >(10) {
-				listViewItem11, listViewItem12,
-					listViewItem13, listViewItem14, listViewItem15, listViewItem16, listViewItem17, listViewItem18, listViewItem19, listViewItem20
+				listViewItem1, listViewItem2,
+					listViewItem3, listViewItem4, listViewItem5, listViewItem6, listViewItem7, listViewItem8, listViewItem9, listViewItem10
 			});
 			this->listView1->Location = System::Drawing::Point(465, 307);
 			this->listView1->Name = L"listView1";
@@ -567,50 +579,59 @@ namespace Tutorial {
 		}
 #pragma endregion
 
+	System::String^ button_red = "C:\\Users\\Matteo\\Documents\\Visual Studio 2013\\Projects\\CreaDataset2\\Tutorial\\button_red.png";
+	System::String^ button_green = "C:\\Users\\Matteo\\Documents\\Visual Studio 2013\\Projects\\CreaDataset2\\Tutorial\\button_green.png";
+	System::String^ button2_red = "C:\\Users\\Matteo\\Documents\\Visual Studio 2013\\Projects\\CreaDataset2\\Tutorial\\button2_red.png";
+	System::String^ button2_green = "C:\\Users\\Matteo\\Documents\\Visual Studio 2013\\Projects\\CreaDataset2\\Tutorial\\button2_green.png";
+
+	//-----------------------------------------------------------------------------------
+	//BOTTONE ACCENSIONE o SPEGNIMENTO CAMERA--------------------------------------------
+	//-----------------------------------------------------------------------------------
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-		if (camera_on == false){
+		//se camera è spenta
+		if (camera_on == false){ 
 			//accendo pictureBox
 			camera_on = true;
-			button1->BackgroundImage = System::Drawing::Image::FromFile("C:\\Users\\Matteo\\Documents\\Visual Studio 2013\\Projects\\CreaDataset2\\Tutorial\\button_red.png");
+			button1->BackgroundImage = System::Drawing::Image::FromFile(button_red); 
 			button1->Text = L"OFF";
 		    capture = cvCreateCameraCapture(CV_CAP_ANY);
 		    if (capture) {
-				timer1->Start();
-			}
-				 
+				timer1->Start(); //inizio la cattura dei frame (vedi timer1)
+			} 
+			//disabilito textBox2 per numero istanze classe
+			textBox2->Enabled = true;
+			textBox2->Enabled = false;
 		}
+		//se camera è accesa
 		else{
-			//spengo pictureBox
 			camera_on = false;
 			button1->Text = L"ON";
-			button1->BackgroundImage = System::Drawing::Image::FromFile("C:\\Users\\Matteo\\Documents\\Visual Studio 2013\\Projects\\CreaDataset2\\Tutorial\\button_green.png");
+			button1->BackgroundImage = System::Drawing::Image::FromFile(button_green);
 			//immagine nera in picture box1
 			pictureBox1->Image = gcnew    //replacement of cvShowImage
 				System::Drawing::Bitmap(frame->width, frame->height, frame->widthStep,
 				System::Drawing::Imaging::PixelFormat::Format24bppRgb, (System::IntPtr) NULL);
 			pictureBox1->Refresh();
-			//riabilito textBox2
+			//riabilito textBox2 per numero istanze classe
 			textBox2->Enabled = true; 
 			cvReleaseCapture(&capture);
-		}
-		//num_visemi da salvare per ogni classe
-		System::String^ string_text_box2 = textBox2->Text;
-		num_item_per_class = System::Int32::Parse(string_text_box2);
-		
+		}	
 	}
-
+	//-----------------------------------------------------------------------------------	 
+	//-----------------------------------------------------------------------------------
+	//BOTTONE CATTURA VISEMI-------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
 	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 		if (camera_on == true){
 			if (inizia == false) {
-				button2->BackgroundImage = System::Drawing::Image::FromFile("C:\\Users\\Matteo\\Documents\\Visual Studio 2013\\Projects\\CreaDataset2\\Tutorial\\button2_red.png");
-				textBox2->Enabled = false;
+				button2->BackgroundImage = System::Drawing::Image::FromFile(button2_red);
 				inizia = true;
 				//sndPlaySound("beep_yes", SND_ASYNC);
 
 			}
 			else {
 				inizia = false;
-				button2->BackgroundImage = System::Drawing::Image::FromFile("C:\\Users\\Matteo\\Documents\\Visual Studio 2013\\Projects\\CreaDataset2\\Tutorial\\button2_green.png");
+				button2->BackgroundImage = System::Drawing::Image::FromFile(button2_green);
 				//immagine nera in picture box1
 				pictureBox2->Image = gcnew    //replacement of cvShowImage
 					System::Drawing::Bitmap(frame->width, frame->height, frame->widthStep,
@@ -623,144 +644,149 @@ namespace Tutorial {
 		}
 		
 	}
-
-
-
+	//-----------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
+	//QUANDO ATTIVO LA CAMERA------------------------------------------------------------
+	//-----------------------------------------------------------------------------------
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
-		string imagename;
+
+		//numero visemi/istanze da salvare per ogni classe
+		System::String^ string_text_box2 = textBox2->Text;
+		num_item_per_class = System::Int32::Parse(string_text_box2);
+		//numero iterazioni per classe
 		fino_a = num_item_per_class * (regola_index + 1);
+
 		textBox1->Text = textBox1->Text + "\r\n FINO_A :" + fino_a;
 		textBox1->SelectionStart = textBox1->Text->Length;
 		textBox1->ScrollToCaret();
 
-		
+		//variabile per nome immagine da salvare
+		string imagename;
 
-		//textBox1->Text = textBox1->Text + "\r\n" + num_item_per_class;
-		//textBox1->SelectionStart = textBox1->Text->Length;
-		//textBox1->ScrollToCaret();
-		//Coloro corrispondente scritta visema 
-
+		//coloro anche listina visemi
 		System::String^ item_list_viseme = listView1->Items[regola_index]->Text;
 		listView1->Items[regola_index]->BackColor = System::Drawing::Color::Yellow;
 
-		//e lo scrivo nella textBox
-		//textBox1->Text = textBox1->Text + "\r\n" + item_list_viseme;
-		//textBox1->SelectionStart = textBox1->Text->Length;
-		//textBox1->ScrollToCaret();
-
+		//framenumber viene incrementato sempre a + 1 per fare un controllo sui frame da apprendere
 		framenumber += 1;
 		//textBox1->Text = textBox1->Text + "\r\n" + framenumber;
 		//textBox1->SelectionStart = textBox1->Text->Length;
 		//textBox1->ScrollToCaret();
-		frame = cvQueryFrame(capture);
 
-		if (frame != NULL){
+		//catturo frame
+		frame = cvQueryFrame(capture);
+		//ruto di 180 sull'asse verticale l'immagine
+		cvFlip(frame, frame, 180);
+
+		if (frame != NULL)
+		{
+			//se premo pulsante cattura visemi (quello sopra alla freccia)
 			if (inizia == true)
 			{
+				//coloro textBox che rappresenta visema da pronunciare di Verde
 				this->textBoxViseme->BackColor = System::Drawing::Color::Green;
 
 				System::String^ item_list_viseme = listView1->Items[regola_index]->Text;
 				listView1->Items[regola_index]->BackColor = System::Drawing::Color::Green;
+
 				if (conta < fino_a)
 				{
-				CvSize s = cvGetSize(frame);
-				int d = frame->depth;
-				int c = frame->nChannels;
-				mouthRegion = cvCreateImage(s, d, c); // (s, 8, 3)
-				croppedRectangle = Rect(300, 300, 100, 100); //coordinate crop + width,height crop 
-				result = cvCreateImage(s, d, c); // (s, 8, 3) 
-				cvCopy(frame,frame); //it's important if u make the image in 3 channel or filtering
-				Mat eccolo;
-				try{
-					eccolo = findLip(frame, faceDetector, mouthRegion, mouthFound);
-				}
-				catch (cv::Exception &e){ cout << e.what() << endl; }
+					CvSize s = cvGetSize(frame);
+					int d = frame->depth;
+					int c = frame->nChannels;
+					mouthRegion = cvCreateImage(s, d, c); // (s, 8, 3)
+					croppedRectangle = Rect(300, 300, 100, 100); //coordinate crop + width,height crop 
+					result = cvCreateImage(s, d, c); // (s, 8, 3) 
+					cvCopy(frame,frame); //it's important if u make the image in 3 channel or filtering
 
-				//textBox1->Text = textBox1->Text + "\r\n MOUTH_FOUND :" + mouthFound;
-				//textBox1->SelectionStart = textBox1->Text->Length;
-				//textBox1->ScrollToCaret();
+					Mat eccolo;
+					try{
+						eccolo = findLip(frame, faceDetector, mouthRegion, mouthFound);
+					}
+					catch (cv::Exception &e){ cout << e.what() << endl; }
 
-				myMat = mouthRegion;
-				croppedRectangle = Rect(300, 300, 100, 100); //coordinate crop + width,height crop 
-				croppedImage = myMat(croppedRectangle);
-
-				//se findLip ha trovato qualcosa
-				if (!eccolo.empty())
-				{
-				IplImage prova = eccolo;
-				IplImage* somePointer = &prova;
-
-				imagename = "";
-
-				//if (framenumber % 10 == 0)
-				//{
-					
-					
-					//scrivo stringa per immagine
-					imagename = "image" + inttostr(photocount) + ".JPEG";
-					f1 << imagename << " " << regola_index << endl;
-					//f1_1 << imagename << " " << regola_index << endl;
-					//f1_2 << imagename << " " << regola_index << endl;
-
-					//converto string in System::String per poterlo stampare su TextBox
-					System::String^ string = gcnew System::String(imagename.c_str()); 
-					// e la stampo su textBox
-					//textBox1->Text = textBox1->Text + "\r\n" + string;
+					//textBox1->Text = textBox1->Text + "\r\n MOUTH_FOUND :" + mouthFound;
 					//textBox1->SelectionStart = textBox1->Text->Length;
 					//textBox1->ScrollToCaret();
 
-					//questo serve per poter salvare l'immagine 
-					vector<int> compression_params;
-					//vector that stores the compression parameters of the image
-					compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
-					//specify the compression technique
-					compression_params.push_back(100); //specify the compression quality
+					myMat = mouthRegion;
+					croppedRectangle = Rect(300, 300, 100, 100); //coordinate crop + width,height crop 
+					croppedImage = myMat(croppedRectangle);
+
+					//se findLip ha trovato qualcosa
+					if (!eccolo.empty())
+					{
+						IplImage prova = eccolo;
+						IplImage* somePointer = &prova;
+
+						imagename = "";
+
+						//salvo ogni X frame
+						//if (framenumber % 10 == 0)
+						//{
+						//scrivo stringa per immagine
+						imagename = "image" + inttostr(photocount) + ".JPEG";
+						f1 << imagename << " " << regola_index << endl;
+						//f1_1 << imagename << " " << regola_index << endl;
+						//f1_2 << imagename << " " << regola_index << endl;
+
+						//converto string in System::String per poterlo stampare su TextBox
+						System::String^ string = gcnew System::String(imagename.c_str()); 
+						// e la stampo su textBox
+						//textBox1->Text = textBox1->Text + "\r\n" + string;
+						//textBox1->SelectionStart = textBox1->Text->Length;
+						//textBox1->ScrollToCaret();
+
+						//questo serve per poter salvare l'immagine 
+						vector<int> compression_params;
+						//vector that stores the compression parameters of the image
+						compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
+						//specify the compression technique
+						compression_params.push_back(100); //specify the compression quality
 					
-					//incremento photocount per contarore immagini salvate
-					photocount++;
+						//incremento photocount per contarore immagini salvate
+						photocount++;
 
-					//salvo l'immagine
-					imwrite(imagename, eccolo, compression_params);
-					imwrite("C:\\Projects\\prova\\caffe\\data\\viseme_prova\\train\\" + imagename, eccolo, compression_params);
-					imwrite("C:\\Projects\\prova\\caffe\\data\\viseme_prova\\val\\" + imagename, eccolo, compression_params);
-
-
-					//la mostro nella pictureBox2
-					pictureBox2->Image = gcnew    //replacement of cvShowImage
-						System::Drawing::Bitmap(somePointer->width, somePointer->height, somePointer->widthStep,
-						System::Drawing::Imaging::PixelFormat::Format24bppRgb, (System::IntPtr) somePointer->imageData);
-					pictureBox2->Refresh();
-
-					conta++;
+						//salvo l'immagine
+						imwrite("images/"+imagename, eccolo, compression_params);
+						imwrite("C:\\Projects\\prova\\caffe\\data\\viseme_prova\\train\\" + imagename, eccolo, compression_params);
+						imwrite("C:\\Projects\\prova\\caffe\\data\\viseme_prova\\val\\" + imagename, eccolo, compression_params);
 
 
-					textBox1->Text = textBox1->Text + "\r\n-----------------CONTA= " + conta;
-					textBox1->SelectionStart = textBox1->Text->Length;
-					textBox1->ScrollToCaret();
-				}
+						//la mostro nella pictureBox2
+						pictureBox2->Image = gcnew    //replacement of cvShowImage
+							System::Drawing::Bitmap(somePointer->width, somePointer->height, somePointer->widthStep,
+							System::Drawing::Imaging::PixelFormat::Format24bppRgb, (System::IntPtr) somePointer->imageData);
+						pictureBox2->Refresh();
 
+						conta++;
+
+						textBox1->Text = textBox1->Text + "\r\n-----------------CONTA= " + conta;
+						textBox1->SelectionStart = textBox1->Text->Length;
+						textBox1->ScrollToCaret();
+					}
 				}
 				else
 				{
 					this->textBoxViseme->BackColor = System::Drawing::Color::Yellow;
 				}
 			}
-			else
-			{
+		else
+		{
 				
-				inizia = false;
-				button2->BackgroundImage = System::Drawing::Image::FromFile("button2_green.png");
-				//immagine nera in picture box1
-				pictureBox2->Image = gcnew    //replacement of cvShowImage
-					System::Drawing::Bitmap(frame->width, frame->height, frame->widthStep,
-					System::Drawing::Imaging::PixelFormat::Format24bppRgb, (System::IntPtr) NULL);
-				pictureBox2->Refresh();
-			}
+			inizia = false;
+			button2->BackgroundImage = System::Drawing::Image::FromFile(button2_green);
+			//immagine nera in picture box1
+			pictureBox2->Image = gcnew    //replacement of cvShowImage
+				System::Drawing::Bitmap(frame->width, frame->height, frame->widthStep,
+				System::Drawing::Imaging::PixelFormat::Format24bppRgb, (System::IntPtr) NULL);
+			pictureBox2->Refresh();
+		}
 
-			pictureBox1->Image  = gcnew    //replacement of cvShowImage
-			System::Drawing::Bitmap(frame->width,frame->height,frame->widthStep,
-			System::Drawing::Imaging::PixelFormat::Format24bppRgb,(System::IntPtr) frame->imageData);
-			pictureBox1->Refresh();
+		pictureBox1->Image  = gcnew    //replacement of cvShowImage
+		System::Drawing::Bitmap(frame->width,frame->height,frame->widthStep,
+		System::Drawing::Imaging::PixelFormat::Format24bppRgb,(System::IntPtr) frame->imageData);
+		pictureBox1->Refresh();
 
 			
 		}
@@ -788,10 +814,11 @@ private: System::Void buttonGIU_Click(System::Object^  sender, System::EventArgs
 	if (regola_index >= 0){
 		System::String^ item_list_viseme = listView1->Items[regola_index]->Text;
 		listView1->Items[regola_index]->BackColor = System::Drawing::Color::White;
-		if (N_MIN >= 0 && N_MIN <= NUM_CLASSI){
-			if (regola_index < 9) regola_index++;
-			System::String^ item_list_viseme = listView1->Items[regola_index]->Text;
-			System::String^ stringa_visema;
+		System::String^ stringa_visema;
+		if (N_MIN >= 0 && N_MIN <= NUM_CLASSI && regola_index < 9)
+		{
+			regola_index++;
+			//System::String^ item_list_viseme = listView1->Items[regola_index]->Text;
 			if (regola_index == 0)
 				stringa_visema = "A,L,N,NE,VA,CA,CHE";
 			if (regola_index == 1)
@@ -820,20 +847,29 @@ private: System::Void buttonGIU_Click(System::Object^  sender, System::EventArgs
 			textBox1->SelectionStart = textBox1->Text->Length;
 		    textBox1->ScrollToCaret();
 		}
+		else
+		{
+			regola_index = 0;
+			stringa_visema = "A,L,N,NE,VA,CA,CHE";
+			textBoxViseme->Text = stringa_visema;
+			System::String^ item_list_viseme = listView1->Items[0]->Text;
+			listView1->Items[regola_index]->BackColor = System::Drawing::Color::Yellow;
+			textBox1->Text = textBox1->Text + "\r\n" + regola_index;
+			textBox1->SelectionStart = textBox1->Text->Length;
+			textBox1->ScrollToCaret();
+			
+		}
 	}
 }
 
-
-
 private: System::Void buttonCreateImagenet_Click(System::Object^  sender, System::EventArgs^  e) {
 	
-
 	//elimino file qualora fossero presenti
 	GetStdoutFromCommand("rmdir /s /q C:\\Projects\\prova\\caffe\\examples\\viseme_prova\\train_lmdb");
 	GetStdoutFromCommand("rmdir /s /q C:\\Projects\\prova\\caffe\\examples\\viseme_prova\\val_lmdb");
-	
+	//------------------------------------------------
 	chdir("C:/Projects/prova/caffe");
-
+	//------------------------------------------------
 	//------------------------------------------------
 	textBoxStdOut->Text = textBoxStdOut->Text + "TRAIN_LMDB: ";
 	textBoxStdOut->SelectionStart = textBoxStdOut->Text->Length;
@@ -854,9 +890,8 @@ private: System::Void buttonCreateImagenet_Click(System::Object^  sender, System
 	textBoxStdOut->SelectionStart = textBoxStdOut->Text->Length;
 	textBoxStdOut->ScrollToCaret();
 	this->textBoxControlCreateImagenetVal->BackColor = System::Drawing::Color::Green;
-	
-	
 }
+
 private: System::Void buttonImagenet_mean_Click(System::Object^  sender, System::EventArgs^  e) {
 
 	chdir("C:/Projects/prova/caffe");
@@ -888,6 +923,10 @@ private: System::Void buttonStartTrain_Click(System::Object^  sender, System::Ev
 	textBoxStdOut->SelectionStart = textBoxStdOut->Text->Length;
 	textBoxStdOut->ScrollToCaret();
 
+}
+private: System::Void informazioniToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	Form_info^ form_informazioni = gcnew Form_info();
+	form_informazioni->ShowDialog();
 }
 };
 
